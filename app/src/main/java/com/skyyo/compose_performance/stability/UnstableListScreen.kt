@@ -1,14 +1,11 @@
 package com.skyyo.compose_performance.stability
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -21,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
-import java.util.Collections
 
 
 @Immutable
@@ -34,9 +30,7 @@ fun UnstableListScreen() {
     val items = remember { (0..200).map { it } }
     val immutableItems = remember { (0..200).map { it }.toPersistentList() }
     val wrappedItems = remember { ImmutableListWrapper((0..200).map { it }) }
-LazyColumn() {
-    
-}
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
