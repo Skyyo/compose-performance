@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toPersistentList
+import kotlinx.collections.immutable.toImmutableList
 
 
 @Immutable
@@ -28,7 +28,7 @@ class ImmutableListWrapper(val value: List<Int>)
 fun UnstableListScreen() {
     var count by remember { mutableStateOf(1) }
     val items = remember { (0..200).map { it } }
-    val immutableItems = remember { (0..200).map { it }.toPersistentList() }
+    val immutableItems = remember { (0..200).map { it }.toImmutableList() }
     val wrappedItems = remember { ImmutableListWrapper((0..200).map { it }) }
 
     Column(
