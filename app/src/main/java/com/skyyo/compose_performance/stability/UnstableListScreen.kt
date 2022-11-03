@@ -16,6 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.skyyo.compose_performance.common.TypicalViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
@@ -25,11 +27,12 @@ class ImmutableListWrapper(val value: List<Int>)
 
 // showcase: unstable composable not being skipped because list is not considered stable
 @Composable
-fun UnstableListScreen() {
+fun UnstableListScreen(viewModel: TypicalViewModel = hiltViewModel()) {
     var count by remember { mutableStateOf(1) }
     val items = remember { (0..200).map { it } }
     val immutableItems = remember { (0..200).map { it }.toImmutableList() }
     val wrappedItems = remember { ImmutableListWrapper((0..200).map { it }) }
+    val immutableItems2 by viewModel.items.collectAsStateWithLifecycleImmutable()
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -43,6 +46,7 @@ fun UnstableListScreen() {
         WrappedLazyColumn(items)
 //        WrappedLazyColumnApproach1(wrappedItems)
 //        WrappedLazyColumnApproach2(immutableItems)
+//        WrappedLazyColumnApproach3(immutableItems2)
     }
 }
 
@@ -80,6 +84,19 @@ private fun WrappedLazyColumnApproach2(items: ImmutableList<Int>) {
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(items = items, key = { item -> item }) { item ->
+            Text(text = "item $item")
+        }
+    }
+}
+
+// optimized using @Immutable marked immutable wrapper provided during `collectAsStateWithLifecycle`
+@Composable
+private fun WrappedLazyColumnApproach3(items: ImmutableWrap<List<Int>>) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        items(items = items.value, key = { item -> item }) { item ->
             Text(text = "item $item")
         }
     }

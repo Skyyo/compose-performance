@@ -8,9 +8,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.fragment.app.FragmentActivity
 import com.skyyo.compose_performance.stateReads.ModifierLambdasScreen
-import com.skyyo.compose_performance.stateReads.stateReads.StateReadsLambdasOptimizedScreen
-import com.skyyo.compose_performance.stateReads.stateReads.StateReadsAnnotationOptimizedScreen
-import com.skyyo.compose_performance.stateReads.stateReads.StateReadsLowerStateReadsOptimizedScreen
 import com.skyyo.compose_performance.ui.theme.ComposeperformanceTheme
 
 class MainActivity : FragmentActivity() {
